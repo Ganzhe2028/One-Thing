@@ -1,7 +1,7 @@
 // import library
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 
-const Form = ( thing, handleInput, handleSubmit ) => {
+const Form = ({ thing, handleInput, handleSubmit }) => {
   return (
     <>
       <h1 className="text-3xl sm:text-6xl font-bold text-center">
