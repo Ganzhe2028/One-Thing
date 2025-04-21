@@ -1,7 +1,16 @@
 import { useState } from "react";
 
-// import CustomForm 这个component文件
+import JSConfetti from 'js-confetti'
+const jsConfetti = new JSConfetti()
+
+// import components
 import CustomForm from "./components/CustomForm";
+import OneThing from "./components/OneThing";
+
+function getSuccessMessage() {
+  const messages = ["Congrats!", "Great job!", "Don't ya feel great?!", "Up, up, and up!", "Um...okay", "Did youu though?", "Don't feel like you tried your best...", "FAget about it!"];
+  return messages[Math.floor(Math.random() * messages.length)];
+}
 
 function App() {
   const [thing, setThing] = useState("");
@@ -15,6 +24,15 @@ function App() {
   const handleInput = (e) => {
     setThing(e.target.value);
   };
+
+  const handleCompletedThing = async(e) => {
+    e.target.setAttribute("disabled", true);
+    setThing(getSuccessMessage());
+    await jsConfetti.addConfetti()
+    e.target.removeAttribute('disabled')
+    setThing()
+    setIsCompleted(true);
+  }
 
   return (
     <main
@@ -30,6 +48,12 @@ function App() {
             thing={thing}
             handleInput={handleInput}
             handleSubmit={handleSubmit}
+          />
+        )}
+        {!isCompleted && (
+          <OneThing
+            thing={thing}
+            handleCompletedThing={handleCompletedThing}
           />
         )}
       </div>
